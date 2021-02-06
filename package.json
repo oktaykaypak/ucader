@@ -1,0 +1,27 @@
+{
+  "name": "ucader",
+  "version": "1.0.0",
+  "description": "Üreten Çocuklar Akedemisi Eğitim Paneli",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
+    "ckeditor": "^4.12.1",
+    "express": "^4.17.1",
+    "nvm": "^0.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oktaykaypak/ucader.git"
+  },
+  "author": "Oktay Kaypak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oktaykaypak/ucader/issues"
+  },
+  "homepage": "https://github.com/oktaykaypak/ucader#readme"
+}
