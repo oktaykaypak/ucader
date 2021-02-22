@@ -1,8 +1,8 @@
 <template>
   <div class="row">
-    <div class="col-sm-2 sideNav text-light">
+    <div :class="isActive ? 'sideNav' : 'sideNav-hidden'" class="text-light">
       <div class="row">
-        <div class="col-sm-12 h3">
+        <div class="col-sm-12 h4">
           Üreten Çocuklar Akedemisi Eğitim Platformu
         </div>
       </div>
@@ -26,14 +26,18 @@
       </div>
     </div>
 
-    <div class="col-sm-10 lessonContent" v-if="title != null">
+    <div class="col-sm-12 lessonContent" v-if="title != null">
       <lessonContainer :title="title" :desc="desc" :Pages="Pages" />
     </div>
-    <div class="col-sm-10 lessonContent" v-else>
+    <div class="col-sm-12 lessonContent" v-else>
       Bu sayfa hoşgeldin sayfası olacak
     </div>
-    <div class="menu  menu-active">
-  <i class="fa fa-bars"></i>
+    <div
+      :class="isActive ? 'menu-active' : 'menu-hidden'"
+      class="menu"
+      @click="Menu()"
+    >
+      <i class="fa fa-bars"></i>
     </div>
   </div>
 </template>
@@ -51,17 +55,26 @@ export default {
       title: null,
       desc: null,
       Pages: [],
+      isActive: false,
     };
   },
   mounted() {
     this.GetStatus();
   },
   methods: {
+    async Menu() {
+      if (this.isActive == true) {
+        this.isActive = false;
+      } else {
+        this.isActive = true;
+      }
+    },
     async openLesson(id) {
       this.title = this.lessons[id].title;
       this.desc = this.lessons[id].desc;
       this.Pages = this.lessons[id].pages;
       console.log(this.title);
+      this.isActive = false;
     },
     async GetStatus() {
       this.lessons = await lessonService.getDataLessons();
@@ -74,16 +87,33 @@ export default {
 <style>
 .sideNav {
   background: #f1103a !important;
-
   text-align: end;
+  width: 350px;
+  padding: 15px;
+  left: 0;
   height: 100%;
-  position: fixed !important;
+  position: absolute !important;
+  transition-duration: 0.5s;
+  z-index: 99;
+}
+.sideNav-hidden {
+  background: #f1103a !important;
+  text-align: end;
+  width: 350px;
+  padding: 0px;
+  left: -350px;
+  height: 100%;
+  position: absolute !important;
+  transition-duration: 0.5s;
+  z-index: 99;
+  overflow: hidden;
 }
 .menuItems {
   text-align: start;
   height: 40px;
   transition-duration: 0.25s;
   padding: 10px 15px;
+  cursor: pointer;
 }
 .menuItems:hover {
   text-align: start;
@@ -106,14 +136,17 @@ export default {
   border-radius: 50%;
   text-align: center;
   font-size: 20px;
+  z-index: 999;
   cursor: pointer;
 }
 .menu-active {
   color: #f1103a;
   background: white;
+  transition-duration: 0.5s;
 }
-.menu-hidden{
-    color:white;
-  background: #f1103a
+.menu-hidden {
+  color: white;
+  background: #f1103a;
+  transition-duration: 0.5s;
 }
 </style>
