@@ -16,75 +16,77 @@ import addLesson from "@/views/addLesson.vue";
 import listLesson from "@/views/listLesson.vue";
 import editLesson from "@/views/editLesson.vue";
 import homePage from "@/views/homePage.vue";
+import lesson from "@/views/lesson.vue";
 
-const routes = [
-  {
+const routes = [{
 
 
-    path: "/admin",
-    component: DashboardLayout,
-    redirect: "admin/listLesson",
-    children: [
-      {
-        path: "/admin/listLesson",
-        name: "Eğitimler",
-        component: listLesson,
-        
-      },
-      {
-        path: "/admin/addLesson",
-        name: "Ders Ekle",
-        component: addLesson,
-      },{
-        path: "/admin/editLesson",
-        name: "Ders Düzenle",
-        component: editLesson,
-      },
-      {
-        path: "/admin/stats",
-        name: "stats",
-        component: UserProfile
-      },
-      {
-        path: "/admin/notifications",
-        name: "notifications",
-        component: Notifications
-      },
-      {
-        path: "/admin/icons",
-        name: "icons",
-        component: Icons
-      },
-      {
-        path: "/admin/maps",
-        name: "maps",
-        component: Maps
-      },
-      {
-        path: "/admin/typography",
-        name: "typography",
-        component: Typography
-      },
-      {
-        path: "/admin/table-list",
-        name: "table-list",
-        component: TableList
-      }
-    ]
-  }, 
-  
-  {
-    path: "/",
-    component: logindash,
-    children: [
-      {
+        path: "/admin",
+        component: DashboardLayout,
+        redirect: "admin/listLesson",
+        children: [{
+                path: "/admin/listLesson",
+                name: "Eğitimler",
+                component: listLesson,
+
+            },
+            {
+                path: "/admin/addLesson",
+                name: "Ders Ekle",
+                component: addLesson,
+            }, {
+                path: "/admin/editLesson",
+                name: "Ders Düzenle",
+                component: editLesson,
+            },
+            {
+                path: "/admin/stats",
+                name: "stats",
+                component: UserProfile
+            },
+            {
+                path: "/admin/notifications",
+                name: "notifications",
+                component: Notifications
+            },
+            {
+                path: "/admin/icons",
+                name: "icons",
+                component: Icons
+            },
+            {
+                path: "/admin/maps",
+                name: "maps",
+                component: Maps
+            },
+            {
+                path: "/admin/typography",
+                name: "typography",
+                component: Typography
+            },
+            {
+                path: "/admin/table-list",
+                name: "table-list",
+                component: TableList
+            }
+        ]
+    },
+
+    {
         path: "/",
-        name: "Home Page",
-        component: homePage
-      }]
-  },
+        component: logindash,
+        children: [{
+            path: "/",
+            name: "Home Page",
+            component: homePage
+        }, {
+            path: "/lesson",
+            name: "Lesson Page",
+            component: lesson
+        }]
+    },
 
-  { path: "*", component: NotFound }
+    { path: "*", component: NotFound }
 ];
 
 /**

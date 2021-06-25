@@ -218,7 +218,7 @@ export default {
             });
 
           await lessonService.addPhoto(this.lessonId, this.img_url);
-          window.location.reload(1);
+          window.location.reload();
         } catch (err) {
           console.log(err);
         }

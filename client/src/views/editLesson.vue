@@ -167,6 +167,7 @@ export default {
         "Copy to clipboard: Ctrl+C, Enter",
         "http://localhost:5000/" + text
       );
+      
     },
     async getParameterByName(name, url = window.location.href) {
       name = name.replace(/[\[\]]/g, "\\$&");
@@ -227,7 +228,7 @@ export default {
             });
 
           await lessonService.addPhoto(this.lessonId, this.img_url);
-          window.location.reload(1);
+          window.location.reload();
         } catch (err) {
           console.log(err);
         }

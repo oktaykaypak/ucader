@@ -10,11 +10,11 @@
         <div
           :title="data.desc"
           class="row menuItems"
-          @click="openLesson(i)"
-          v-for="(data, i) in lessons"
+         
+          v-for="data in lessons"
           :key="data"
         >
-          <div class="col-sm-12">
+          <div class="col-sm-12" @click="RouteLesson(data._id)" >
             <div class="row">
               <div class="col-sm-1">
                 <i class="ti-folder"></i>
@@ -29,7 +29,7 @@
     <div class="col-sm-12 lessonContent" v-if="title != null">
       <lessonContainer :title="title" :desc="desc" :Pages="Pages" />
     </div>
-    <div class="col-sm-12 lessonContent" v-else>
+    <div class="col-sm-12 container lessonContent" v-else>
       Bu sayfa hoşgeldin sayfası olacak
     </div>
     <div
@@ -62,6 +62,9 @@ export default {
     this.GetStatus();
   },
   methods: {
+    RouteLesson(id) {
+      this.$router.push({ path: "/lesson", query: { id: id } });
+    },
     async Menu() {
       if (this.isActive == true) {
         this.isActive = false;

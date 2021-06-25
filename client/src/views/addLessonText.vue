@@ -1,6 +1,22 @@
 <template>
   <div class="" id="Ck">
     <div class="row">
+      <div class="col-12">
+          <div class="input-group mb-3 shadow-sm">
+              <span class="input-group-text" id="basic-addon1">Sayfa Başlığı</span>
+              <input
+                type="text"
+                class="form-control"
+                style="border: 1px #ced4da solid !important; border-left: none"
+                placeholder="Örn. Aracımıcı Boyayalım"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                v-model="pageName"
+              />
+            </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-sm-12">
         <ckeditor :config="editorConfig" v-model="editorData"></ckeditor>
       </div>
@@ -72,7 +88,7 @@ export default {
       this.notifyVue("top", "right", "\n\r Sayfa kaydediliyor !", "info");
       await lessonService
         .addLessonData(this.lId, this.title, this.desc)
-        .then((res) => {  
+        .then((res) => {
           if (res.status == 200) {
             this.notifyVue("top", "right", "\n\rİşlem Başarılı!", "success");
           }
