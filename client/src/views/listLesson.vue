@@ -40,7 +40,9 @@
                       </button>
                       <button
                         type="button"
-                        class="btn btn-danger btn-sm fontSize"
+                        :class="data.isView ? 'btn-success' : 'btn-danger'"
+                        class="btn btn-sm fontSize"
+                        @click="showLesson(data._id, data.isView)"
                       >
                         <i class="ti-eye"></i>
                       </button>
@@ -60,7 +62,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import lessonService from "../service/lessonService";
 import VueNotify from "vue-notifyjs";
 import Vue from "vue";
@@ -77,6 +78,14 @@ export default {
     this.GetStatus();
   },
   methods: {
+    async showLesson(id, isView) {
+      if (isView) {
+        this.lessons = await lessonService.showLesson(id, false);
+      } else {
+        this.lessons = await lessonService.showLesson(id, true);
+      }
+      window.location.reload()
+    },
     async notifyVue(verticalAlign, horizontalAlign, message, type) {
       const color = Math.floor(Math.random() * 4 + 1);
       this.$notify({

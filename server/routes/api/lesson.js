@@ -40,7 +40,7 @@ router.get('/:id', async(req, res) => {
 });
 
 //* UPDATE METODU
-router.put('/', async(req, res) => {
+router.put('/isView', async(req, res) => {
     const client = await mongodb.MongoClient.connect(
         'mongodb+srv://admin:zQwQz@cluster0.q8mdc.mongodb.net/ucader?retryWrites=true&w=majority', {
             useNewUrlParser: true,
@@ -53,12 +53,7 @@ router.put('/', async(req, res) => {
 
         await client.db('ucader').collection('egitim').updateMany({ _id: new mongodb.ObjectID(req.body.id) }, {
             $set: {
-                detail: { tr: { name: req.body.name, desc: req.body.desc }, en: { name: req.body.nameEn, desc: req.body.descEn } },
-                category: new mongodb.ObjectID(req.body.categoryId),
-                showInPage: Boolean(req.body.showInPage),
-                startDate: mongodb.Int32(req.body.startDate),
-                endDate: mongodb.Int32(req.body.endDate),
-                row_number: mongodb.Int32(req.body.row_number)
+                isView: req.body.isView
             }
         })
         res.status(200).send();
@@ -122,6 +117,7 @@ router.post('/lessonData', async(req, res) => {
 
         await client.db('ucader').collection('egitim').updateMany({ _id: new mongodb.ObjectID(req.body.id) }, {
             $set: {
+
                 title: req.body.title,
                 desc: req.body.desc
             }
@@ -167,7 +163,7 @@ router.post('/addLesson', async(req, res) => {
 
 
     await client.db('ucader').collection('egitim').insertOne({
-
+        isView: false,
         title: "",
         desc: "",
         picture: [],

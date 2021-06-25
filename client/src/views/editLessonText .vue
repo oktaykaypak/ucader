@@ -42,14 +42,13 @@
       </div>
       <div class="col-sm-6 d-flex justify-content-end">
         <div class="row">
-         
           <div class="px-1">
             <button class="btn btn-warning" @click="editPage()">Düzenle</button>
           </div>
-          <div class="px-1">
+          <!-- <div class="px-1">
             <button class="btn btn-info" @click="addPage()">Yeni Sayfa</button>
-          </div>
-           <div class="px-5">
+          </div> -->
+          <div class="px-5">
             <button class="btn btn-success" @click="save()">Kaydet</button>
           </div>
         </div>
@@ -85,7 +84,7 @@ export default {
     return {
       lessons: [],
       editorData: null,
-      pageName:null,
+      pageName: null,
       type: ["info", "success", "warning", "danger"],
       pageId: null,
       editorConfig: {
@@ -111,12 +110,12 @@ export default {
       });
     },
     async getLessonData(id) {
-      this.editorData = this.lessonPageData[id];
+      this.editorData = this.lessonPageData[id].data;
+      this.pageName = this.lessonPageData[id].pageName;
       this.pageId = id;
     },
     async GetStatus() {
       this.lessons = await lessonService.getData(this.lId);
-     
     },
     async save() {
       this.notifyVue("top", "right", "\n\rDüzenleme işlemi başladı!", "info");
@@ -135,7 +134,7 @@ export default {
       this.notifyVue("top", "right", "\n\rDüzenleme işlemi başladı!", "info");
 
       await lessonService
-        .editLessonPage(this.lId, this.pageId, this.editorData,this.pageName)
+        .editLessonPage(this.lId, this.pageId, this.editorData, this.pageName)
         .then((res) => {
           if (res.status == 200) {
             this.notifyVue("top", "right", "\n\rİşlem Başarılı!", "success");
@@ -147,7 +146,7 @@ export default {
       this.notifyVue("top", "right", "\n\rDüzenleme işlemi başladı!", "info");
 
       await lessonService
-        .addLessonPage(this.lId, this.editorData,this.pageName)
+        .addLessonPage(this.lId, this.editorData, this.pageName)
         .then((res) => {
           if (res.status == 200) {
             this.notifyVue("top", "right", "\n\rİşlem Başarılı!", "success");
@@ -165,5 +164,4 @@ export default {
 .fontSize {
   font-size: 12px !important;
 }
-
 </style>

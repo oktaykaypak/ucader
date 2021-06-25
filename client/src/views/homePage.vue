@@ -14,7 +14,7 @@
           v-for="data in lessons"
           :key="data"
         >
-          <div class="col-sm-12" @click="RouteLesson(data._id)" >
+          <div class="col-sm-12" v-if="data.isView==true" @click="RouteLesson(data._id)" >
             <div class="row">
               <div class="col-sm-1">
                 <i class="ti-folder"></i>

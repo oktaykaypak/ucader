@@ -40,6 +40,13 @@ class lessonService {
 
         });
     }
+    static showLesson(id, isView) {
+        return axios.put(`${url}/isView`, {
+            id: id,
+            isView: isView
+
+        });
+    }
     static addPhoto(idP, img_url) {
         return axios.post(`${url}photo`, {
             id: idP,

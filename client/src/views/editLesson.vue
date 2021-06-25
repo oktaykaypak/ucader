@@ -116,6 +116,7 @@
           <div class="col-sm-12 card-body">
             <editLessonText
               :lessonPageData="lessonData[0].pages"
+              
               :lId="lessonId"
               :title="titleIn"
               :desc="descIn"
