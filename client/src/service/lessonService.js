@@ -5,7 +5,7 @@ class lessonService {
 
 
     static getDataLessons() {
-        return new Promise(async (resolve, reject) => {
+        return new Promise(async(resolve, reject) => {
             try {
                 const res = await axios.get(`${url}`, {});
                 const data = res.data;
@@ -21,7 +21,7 @@ class lessonService {
     }
 
     static getData(lessonId) {
-        return new Promise(async (resolve, reject) => {
+        return new Promise(async(resolve, reject) => {
             try {
                 const res = await axios.get(`${url}${lessonId}`, {});
                 const data = res.data;
@@ -37,7 +37,7 @@ class lessonService {
     }
     static addLesson() {
         return axios.post(`${url}addLesson`, {
-        
+
         });
     }
     static addPhoto(idP, img_url) {
@@ -53,10 +53,11 @@ class lessonService {
             desc: desc
         });
     }
-    static addLessonPage(idPD, pageData) {
+    static addLessonPage(idPD, pageData, pageName) {
         return axios.post(`${url}pageData`, {
             id: idPD,
-            pageData: pageData
+            pageData: pageData,
+            pageName: pageName
         });
     }
     static deleteLesson(id) {
@@ -67,12 +68,13 @@ class lessonService {
         });
     }
 
-    static editLessonPage(id,pageId,editorData) {
+    static editLessonPage(id, pageId, editorData, pageName) {
         return axios.post(`${url}editLessonPage`, {
-         
-                id: id,
-                pageId:pageId,
-                editorData:editorData
+
+            id: id,
+            pageId: pageId,
+            editorData: editorData,
+            pageName: pageName
         });
     }
 

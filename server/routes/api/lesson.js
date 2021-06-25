@@ -5,12 +5,12 @@ const fs = require('fs');
 const path = require('path');
 
 //* GET METODU
-router.get('/', async (req, res) => {
+router.get('/', async(req, res) => {
     const client = await mongodb.MongoClient.connect(
         'mongodb+srv://admin:zQwQz@cluster0.q8mdc.mongodb.net/ucader?retryWrites=true&w=majority', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    }
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        }
     );
 
     try {
@@ -23,12 +23,12 @@ router.get('/', async (req, res) => {
 
 
 //* GET METODU
-router.get('/:id', async (req, res) => {
+router.get('/:id', async(req, res) => {
     const client = await mongodb.MongoClient.connect(
         'mongodb+srv://admin:zQwQz@cluster0.q8mdc.mongodb.net/ucader?retryWrites=true&w=majority', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    }
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        }
     );
 
     try {
@@ -40,12 +40,12 @@ router.get('/:id', async (req, res) => {
 });
 
 //* UPDATE METODU
-router.put('/', async (req, res) => {
+router.put('/', async(req, res) => {
     const client = await mongodb.MongoClient.connect(
         'mongodb+srv://admin:zQwQz@cluster0.q8mdc.mongodb.net/ucader?retryWrites=true&w=majority', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    }
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        }
     );
 
     try {
@@ -67,12 +67,12 @@ router.put('/', async (req, res) => {
 
 
 //* POST METODU
-router.post('/photo', async (req, res) => {
+router.post('/photo', async(req, res) => {
     const client = await mongodb.MongoClient.connect(
         'mongodb+srv://admin:zQwQz@cluster0.q8mdc.mongodb.net/ucader?retryWrites=true&w=majority', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
     try {
 
         await client.db('ucader').collection('egitim').updateMany({ _id: new mongodb.ObjectID(req.body.id) }, {
@@ -87,17 +87,20 @@ router.post('/photo', async (req, res) => {
     } finally { client.close() }
 });
 
-router.post('/pageData', async (req, res) => {
+router.post('/pageData', async(req, res) => {
     const client = await mongodb.MongoClient.connect(
         'mongodb+srv://admin:zQwQz@cluster0.q8mdc.mongodb.net/ucader?retryWrites=true&w=majority', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
     try {
 
         await client.db('ucader').collection('egitim').updateMany({ _id: new mongodb.ObjectID(req.body.id) }, {
             $push: {
-                "pages": req.body.pageData
+                "pages": {
+                    pageName: req.body.pageName,
+                    data: req.body.pageData
+                }
             }
         })
         res.status(200).send();
@@ -109,12 +112,12 @@ router.post('/pageData', async (req, res) => {
 
 
 //* POST METODU
-router.post('/lessonData', async (req, res) => {
+router.post('/lessonData', async(req, res) => {
     const client = await mongodb.MongoClient.connect(
         'mongodb+srv://admin:zQwQz@cluster0.q8mdc.mongodb.net/ucader?retryWrites=true&w=majority', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
     try {
 
         await client.db('ucader').collection('egitim').updateMany({ _id: new mongodb.ObjectID(req.body.id) }, {
@@ -131,17 +134,20 @@ router.post('/lessonData', async (req, res) => {
 });
 
 //* POST METODU
-router.post('/editLessonPage', async (req, res) => {
+router.post('/editLessonPage', async(req, res) => {
     const client = await mongodb.MongoClient.connect(
         'mongodb+srv://admin:zQwQz@cluster0.q8mdc.mongodb.net/ucader?retryWrites=true&w=majority', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
     try {
 
         await client.db('ucader').collection('egitim').updateMany({ _id: new mongodb.ObjectID(req.body.id) }, {
             $set: {
-                ["pages." + req.body.pageId + ""]: req.body.editorData
+                ["pages." + req.body.pageId + ""]: {
+                    pageName: req.body.pageName,
+                    data: req.body.editorData
+                }
             }
         })
         res.status(200).send();
@@ -152,12 +158,12 @@ router.post('/editLessonPage', async (req, res) => {
 });
 
 //* POST METODU
-router.post('/addLesson', async (req, res) => {
+router.post('/addLesson', async(req, res) => {
     const client = await mongodb.MongoClient.connect(
         'mongodb+srv://admin:zQwQz@cluster0.q8mdc.mongodb.net/ucader?retryWrites=true&w=majority', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
 
 
     await client.db('ucader').collection('egitim').insertOne({
@@ -167,7 +173,7 @@ router.post('/addLesson', async (req, res) => {
         picture: [],
         pages: []
 
-    }, function (err, docsInserted) {
+    }, function(err, docsInserted) {
         id = docsInserted.insertedId;
         res.status(200).json({
             id: id
@@ -180,12 +186,12 @@ router.post('/addLesson', async (req, res) => {
 
 
 //* DELETE METODU
-router.delete('/', async (req, res) => {
+router.delete('/', async(req, res) => {
     const client = await mongodb.MongoClient.connect(
         'mongodb+srv://admin:zQwQz@cluster0.q8mdc.mongodb.net/ucader?retryWrites=true&w=majority', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    }
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        }
     );
     try {
 

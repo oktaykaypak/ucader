@@ -19,7 +19,7 @@
               <div class="col-sm-1">
                 <i class="ti-folder"></i>
               </div>
-              <div class="col-sm-9">{{ i }}</div>
+              <div class="col-sm-9">{{ data.pageName }}</div>
             </div>
           </div>
         </div>
@@ -100,13 +100,13 @@ export default {
       this.lessons = await lessonService.getData(id);
       this.Pages=this.lessons[0].pages
   
-      this.rawData=this.lessons[0].pages[0]
+      this.rawData=this.lessons[0].pages[0].data
       
       console.log(this.lessons);
     },
     async GetPageData(id) {
      
-      this.rawData=this.lessons[0].pages[id]
+      this.rawData=this.lessons[0].pages[id].data
       this.activePage=id
       console.log(this.lessons);
     },
@@ -114,13 +114,13 @@ export default {
       console.log(this.Pages.length);
       if (this.activePage != this.Pages.length - 1) {
         this.activePage += 1;
-        this.rawData = this.Pages[this.activePage];
+        this.rawData = this.Pages[this.activePage].data;
       }
     },
     async PrewPageData() {
       if (this.activePage != 0) {
         this.activePage -= 1;
-        this.rawData = this.Pages[this.activePage];
+        this.rawData = this.Pages[this.activePage].data;
       }
     },
   },
